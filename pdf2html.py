@@ -31,4 +31,5 @@ def noimgs(file):
 #end function noimgs
 
 pdf2html("file.pdf")
+os.system("./HtmL out.html")
 
