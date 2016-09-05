@@ -1,13 +1,10 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-main(){
+int main( int argc, char *argv[]){
        FILE *pf,*ps,*pc;
-       char p[60];
        char c;
-       printf("Inserisci il percorso del file:");
-       scanf("%s",&p);
-       ps=fopen(p,"r");
+       ps=fopen(argv[1],"r");
        pc=fopen("testo.txt","w");
        fscanf(ps,"%c",&c);
        while(!feof(ps)){
@@ -31,5 +28,6 @@ main(){
                              printf("%c",c);}
                         fscanf(pf,"%c",&c);
        }  
-       system("pause");                    
+       system("pause");       
+	   return 0;
 }
