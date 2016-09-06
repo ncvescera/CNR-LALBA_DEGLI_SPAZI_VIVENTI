@@ -5,7 +5,7 @@ int main( int argc, char *argv[]){
        FILE *ps,*pc;
        char c;
        ps=fopen(argv[1],"r");
-       pc=fopen("testo.txt","w");
+       pc=fopen("../File/out.txt","w");
        fscanf(ps,"%c",&c);
        while(!feof(ps)){
                         if(c=='<'){

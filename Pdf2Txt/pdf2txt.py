@@ -43,12 +43,12 @@ def html2txt(file):
 	print "Parsing html to txt ..."
 
 	os.system("./HtmL " + file)
-	nospaces("testo.txt")
+	nospaces("../File/out.txt")
 	os.system("rm " + file)
 	
 	print "Done :D"
 
 
-pdf2html("file.pdf")
+pdf2html("../File/file.pdf")
 
 html2txt("out.html")
