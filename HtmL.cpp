@@ -9,7 +9,6 @@ int main( int argc, char *argv[]){
        fscanf(ps,"%c",&c);
        while(!feof(ps)){
                         if(c=='<'){
-							fprintf(pc,"\n");
                                    do{
                                    fscanf(ps,"%c",&c);
                                    }while(c!='>');
