@@ -4,10 +4,12 @@ import os
 import sys
 import re
 
+from credential import *
+
 def pdf2txt(file):
 	#conversione pdf to txt
 	print "Parsing PDF file to txt ..."
-	os.system("./ckutils.sh")
+	os.system("sudo apt-get install poppler-utils -y")
 	os.system("pdftotext "+file+" out.txt")
 	print "Done :D"
 
