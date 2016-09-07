@@ -42,7 +42,7 @@ def nospaces(file):
 def html2txt(file):
 	print "Parsing html to txt ..."
 
-	os.system("./HtmL " + file)
+	os.system("./html2txt " + file)
 	nospaces("../File/out.txt")
 	os.system("rm " + file)
 	
