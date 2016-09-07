@@ -16,14 +16,18 @@ def getUpperWords(file):
 	rows = f.readlines()
 	f.close()
 
+	upperWords = []
+
 	for row in rows:
 		words = row.split(" ")
 		for word in words:
 			if word.istitle():
 				#regular expression serve per cercare e sostituire un determinato set di caratteri
 				regularExpression = re.compile('[^a-zA-Z]')
-				print regularExpression.sub('',word)
+				upperWords.append(regularExpression.sub('',word))
 
+	return upperWords
 
 pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
-getUpperWords("out.txt")
+words = getUpperWords("out.txt")
+os.system("rm out.txt")
