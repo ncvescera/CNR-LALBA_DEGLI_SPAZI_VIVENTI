@@ -6,6 +6,7 @@ import re
 import psycopg2
 
 from credential import *
+from Country import *
 
 def pdf2txt(file):
 	#conversione pdf to txt
@@ -31,6 +32,7 @@ def getUpperWords(file):
 
 	return upperWords #array di stringhe
 
+
 def connectdb():
 	print "Connecting to database ..."
 	conn = psycopg2.connect("dbname="+dbname+" user="+user+" password="+password+" host="+host+" port="+port)
@@ -45,18 +47,43 @@ def matchWords(words,connection):
 	cursor = connection.cursor()
 	ids = []
 	for word in words:
-		cursor.execute("SELECT * FROM countries WHERE city = '"+word+"'")
-		resutl = cursor.fetchall()
+		cursor.execute("SELECT * FROM countries WHERE city = '"+word+"' ORDER BY id asc")
+		result = cursor.fetchall()
 		if len(result) > 0:
-			for elem in resutl:
-				ids.appen(elem[0])
+			for elem in result:
+				print str(elem[0])+" " + elem[1] +" "+ elem[2][:-1] +" ---> " + word 
+				ids.append(Country(elem[0],elem[1],elem[2][:-1]))
 
-	print "Found "+str(len(ids))+" words"
-	
-	return ids #array di interi
+	print "Found "+str(len(ids))+" words\n"
+	print "Optimazed match..."
+	match = optimazedMatch(ids)
+	print "Optimazed match succesful: found "+str(len(match))+" words\n"
+	return match
+
+def optimazedMatch(ids):
+	newIds = []
+	newIds.append(ids[0])
+
+	for elem in ids:
+		add = False
+		for idN in newIds:
+			if elem.city == idN.city and elem.nation == idN.nation:
+				add = False
+				break
+			else:
+				add = True
+
+		if add == True:
+			newIds.append(elem)
+
+	return newIds
+
+
 
 pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
 words = getUpperWords("out.txt")
+words = list(set(words)) #elimina glie elementi dioppi
+words.sort()
 os.system("rm out.txt")
 
 connection = connectdb()
@@ -65,6 +92,8 @@ if connection == -1:
 	exit()
 print "Connection succesful :D"
 
-matchWords(words,connection)
+matches = matchWords(words,connection)
+for elem in matches:
+	print elem.city + " "+ elem.nation
 
 
