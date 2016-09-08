@@ -3,7 +3,6 @@
 import os
 import sys
 import re
-import psycopg2
 
 from credential import *
 from Country import *
@@ -34,6 +33,10 @@ def getUpperWords(file):
 
 
 def connectdb():
+
+	os.system("sudo apt-get install python-psycopg2 -y")
+	import psycopg2
+	
 	print "Connecting to database ..."
 	conn = psycopg2.connect("dbname="+dbname+" user="+user+" password="+password+" host="+host+" port="+port)
 	if conn:
