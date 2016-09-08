@@ -11,7 +11,7 @@ def pdf2txt(file):
 	#conversione pdf to txt
 	print "Parsing PDF file to txt ..."
 	os.system("sudo apt-get install poppler-utils -y")
-	os.system("pdftotext "+file+" out.txt")
+	os.system("pdftotext -l 3 "+file+" out.txt") #converte solo le prime 3 pagine
 	print "Done :D"
 
 def getUpperWords(file):
@@ -81,7 +81,16 @@ def optimazedMatch(ids):
 
 	return newIds
 
-
+def ckNations(words,matches):
+	ultimateMatches = []
+	for match in matches:
+		nation = match.nation.split("/")
+		for word in words:
+			if nation[0] == word:
+				for elem in words:
+					if nation[1] == elem:
+						ultimateMatches.append(match)
+	return ultimateMatches
 
 pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
 words = getUpperWords("out.txt")
