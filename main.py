@@ -13,15 +13,15 @@ dictionary = ["area","areas","located"]
 def ckLib():
 	print "Checking libraries ..."
 	print "Check: poppler-utils ..."
-	os.system("sudo apt-get install poppler-utils -y")
+	os.system("./ckPkg.sh poppler-utils")
 
 	print "Check: psycopg2 ..."
-	os.system("sudo apt-get install python-psycopg2 -y")
-	
+	os.system("./ckPkg.sh python-psycopg2")
+	"""
 	print "Check: geonames ..."
 	os.system("sudo add-apt-repository ppa:ubuntugis/ppa -y -qq")
 	os.system("sudo apt-get update -y -qq")
-	
+	"""
 	print "Done :D"
 
 def pdf2txt(file):
