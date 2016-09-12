@@ -119,8 +119,35 @@ def fetchGeonames(matches):
 		for id_, name in result.get_flat_results():
 			geon.append(geonames.compat.make_unicode("{0},{1}").format(id_, name))
 
-	
-	return geon
+	end = []
+	for match in matches:
+		for elem in geon:
+			temp = elem.split(",")
+			if temp[1] == match.city:
+				end.append(match.city)
+				break
+	last = []
+	i=0
+	for elem in end:
+		i=i+1
+		j=i
+		for j in range(j,len(end)):
+			sa = geonames.adapters.search.Search(_USERNAME)
+			result = sa.query(elem+","+end[j]).max_rows(1).execute()
+			for id_, name in result.get_flat_results():
+				last.append(geonames.compat.make_unicode("{0},{1}").format(id_, name))
+	i=0
+	toReturn = []
+	for elem in last:
+		add = True
+		i=i+1
+		j=i
+		for j in range(j,len(last)):
+			if elem ==last[j]:
+				add = False
+		if add == True:
+			toReturn.append(elem)
+	return toReturn
 
 ckLib(firstTime)
 
@@ -137,6 +164,7 @@ if connection == -1:
 print "Connection succesful :D"
 
 matches = matchWords(words,connection)
+print "Final matches: "
 matches = fetchGeonames(matches)
 for elem in matches:
 	print elem 
