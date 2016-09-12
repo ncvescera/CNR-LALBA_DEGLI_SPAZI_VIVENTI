@@ -3,15 +3,13 @@
 import os
 import sys
 import re
-import subprocess
-
-if not firstTime:
-	import geonames.geonames.adapters.search
-
 
 from credential1 import *
 from Country import *
 from firstTime import *
+
+if not firstTime:
+	import geonames.geonames.adapters.search
 
 dictionary = ["area","areas","located"]
 
