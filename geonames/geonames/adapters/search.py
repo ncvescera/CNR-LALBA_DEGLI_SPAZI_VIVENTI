@@ -2,10 +2,10 @@
 Geonames Search API: http://www.geonames.org/export/geonames-search.html
 """
 
-import geonames.geonames.adapters.base
+import geonames.adapters.base
 
 
-class Search(geonames.geonames.adapters.base.AdapterBase):
+class Search(geonames.adapters.base.AdapterBase):
     service_name = 'search'
 
     def get_required_parameters(self):

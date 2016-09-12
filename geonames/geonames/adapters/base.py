@@ -1,7 +1,7 @@
 import logging
 
-import geonames.geonames.config.api
-import geonames.geonames.compat
+import geonames.config.api
+import geonames.compat
 
 logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARNING)
 
@@ -20,7 +20,7 @@ class Result(object):
 
         return self.xml.xpath(
                 ".//gn:Feature", 
-                namespaces=geonames.geonames.config.api.XML_NAMESPACES)
+                namespaces=geonames.config.api.XML_NAMESPACES)
 
     def get_flat_results(self):
         """Just yield a list of 2-tuples of ID and name."""
@@ -29,16 +29,16 @@ class Result(object):
             feature_node = \
                 node.xpath(
                     './/@rdf:about', 
-                    namespaces=geonames.geonames.config.api.XML_NAMESPACES)
+                    namespaces=geonames.config.api.XML_NAMESPACES)
 
             feature_id = str(feature_node[0])
 
             name_node = \
                 node.xpath(
                     './/gn:name', 
-                    namespaces=geonames.geonames.config.api.XML_NAMESPACES)
+                    namespaces=geonames.config.api.XML_NAMESPACES)
 
-            name = geonames.geonames.compat.make_unicode(name_node[0].text)
+            name = geonames.compat.make_unicode(name_node[0].text)
 
             yield (feature_id, name)
 
@@ -58,7 +58,7 @@ class AdapterBase(object):
             service_name is not None, \
             "service_name needs to be set."
 
-        self.__url = geonames.geonames.config.api.API_URL_PREFIX + '/' + service_name
+        self.__url = geonames.config.api.API_URL_PREFIX + '/' + service_name
         self.__parameters_list = [
             ('type', 'rdf'),
             ('username', username),
@@ -85,7 +85,7 @@ class AdapterBase(object):
         return self
 
     def __flatten_parameters(self):
-        return geonames.geonames.compat.urlencode(self.__parameters_list)
+        return geonames.compat.urlencode(self.__parameters_list)
 
     def execute(self):
         """Return an lxml object."""

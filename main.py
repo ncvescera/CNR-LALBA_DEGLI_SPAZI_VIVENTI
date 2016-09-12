@@ -109,16 +109,15 @@ def optimazedMatch(ids):
 	return newIds
 
 def fetchGeonames(matches):
-	if not firstTime:
-		import geonames.geonames.adapters.search
+	import geonames.adapters.search
 	geon = []
 	_USERNAME = 'dsoprea'
 	
 	for match in matches:
-		sa = geonames.geonames.adapters.search.Search(_USERNAME)
+		sa = geonames.adapters.search.Search(_USERNAME)
 		result = sa.query(match.city).max_rows(3).execute()
 		for id_, name in result.get_flat_results():
-			geon.append(geonames.geonames.compat.make_unicode("{0},{1}").format(id_, name))
+			geon.append(geonames.compat.make_unicode("{0},{1}").format(id_, name))
 
 	
 	return geon

@@ -1,6 +1,6 @@
 import logging
 
-import geonames.geonames.config
+import geonames.config
 
 def _configure_logs():
     logger = logging.getLogger()
