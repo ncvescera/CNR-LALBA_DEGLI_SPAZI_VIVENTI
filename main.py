@@ -5,7 +5,7 @@ import sys
 import re
 import subprocess
 
-if !firstTime:
+if not firstTime:
 	import geonames.geonames.adapters.search
 
 
