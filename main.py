@@ -1,28 +1,38 @@
 #!/usr/bin/python
-
+ # -*- coding: UTF-8 -*-
 import os
 import sys
 import re
-import geonames.adapters.search
+import subprocess
+import geonames.geonames.adapters.search
+
 
 from credential1 import *
 from Country import *
+from firstTime import *
 
 dictionary = ["area","areas","located"]
 
-def ckLib():
-	print "Checking libraries ..."
-	print "Check: poppler-utils ..."
-	os.system("./ckPkg.sh poppler-utils")
+def ckLib(firstTime):
+	if firstTime:
+		print "Checking libraries ..."
+		print "Check: poppler-utils ..."
+		os.system("./ckPkg.sh poppler-utils")
 
-	print "Check: psycopg2 ..."
-	os.system("./ckPkg.sh python-psycopg2")
-	"""
-	print "Check: geonames ..."
-	os.system("sudo add-apt-repository ppa:ubuntugis/ppa -y -qq")
-	os.system("sudo apt-get update -y -qq")
-	"""
-	print "Done :D"
+		print "Check: psycopg2 ..."
+		os.system("./ckPkg.sh python-psycopg2")
+
+		print "Check geonames ..."
+		os.system("cd geonames; sudo python setup.py install;")
+
+		print "Done :D"
+
+		f = open("firstTime.py","w")
+		f.write("#!/usr/bin/python\n")
+		f.write("firstTime = False")
+		f.close
+	
+		
 
 def pdf2txt(file):
 	#conversione pdf to txt
@@ -102,12 +112,19 @@ def optimazedMatch(ids):
 	return newIds
 
 def fetchGeonames(matches):
-	"""
-	os.system("gn_search -p query malaysia -p max_rows 3 dsoprea > geonames.txt")
-	"""
-	pass
+	geon = []
+	_USERNAME = 'dsoprea'
+	
+	for match in matches:
+		sa = geonames.geonames.adapters.search.Search(_USERNAME)
+		result = sa.query(match.city).max_rows(3).execute()
+		for id_, name in result.get_flat_results():
+			geon.append(geonames.geonames.compat.make_unicode("{0},{1}").format(id_, name))
 
-ckLib()
+	
+	return geon
+
+ckLib(firstTime)
 
 pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
 words = getUpperWords("out.txt")
@@ -122,6 +139,8 @@ if connection == -1:
 print "Connection succesful :D"
 
 matches = matchWords(words,connection)
+matches = fetchGeonames(matches)
 for elem in matches:
-	print elem.city + " "+ elem.nation
+	print elem 
+
 
