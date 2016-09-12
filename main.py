@@ -85,10 +85,13 @@ def matchWords(words,connection):
 				ids.append(Country(elem[0],elem[1],elem[2][:-1]))
 
 	print "Found "+str(len(ids))+" words\n"
-	print "Optimazed match..."
-	match = optimazedMatch(ids)
-	print "Optimazed match succesful: found "+str(len(match))+" words\n"
-	return match
+	if len(words) > 0:
+		print "Optimazed match..."
+		match = optimazedMatch(ids)
+		print "Optimazed match succesful: found "+str(len(match))+" words\n"
+		return match
+	else:
+		return []
 
 def optimazedMatch(ids):
 	newIds = []
@@ -155,7 +158,7 @@ pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
 words = getUpperWords("out.txt")
 words = list(set(words)) #elimina glie elementi dioppi
 words.sort()
-os.system("rm out.txt")
+os.system("rm out.txt")	
 
 connection = connectdb()
 if connection == -1:
@@ -164,9 +167,12 @@ if connection == -1:
 print "Connection succesful :D"
 
 matches = matchWords(words,connection)
-print "Final matches: "
-matches = fetchGeonames(matches)
-for elem in matches:
-	print elem 
+if len(matches) > 0:
+	print "Final matches: "
+	matches = fetchGeonames(matches)
+	for elem in matches:
+		print elem 
+else:
+	exit(1)
 
 
