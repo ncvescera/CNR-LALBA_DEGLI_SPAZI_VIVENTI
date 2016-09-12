@@ -4,7 +4,9 @@ import os
 import sys
 import re
 import subprocess
-import geonames.geonames.adapters.search
+
+if !firstTime:
+	import geonames.geonames.adapters.search
 
 
 from credential1 import *
@@ -31,7 +33,8 @@ def ckLib(firstTime):
 		f.write("#!/usr/bin/python\n")
 		f.write("firstTime = False")
 		f.close
-	
+		
+		import geonames.geonames.adapters.search
 		
 
 def pdf2txt(file):
