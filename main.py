@@ -20,7 +20,7 @@ def ckLib(firstTime):
 		os.system("./ckPkg.sh python-psycopg2")
 
 		print "Check geonames ..."
-		os.system("cd geonames; sudo python setup.py install;")
+		os.system("./installGeon.sh")
 
 		print "Done :D"
 
