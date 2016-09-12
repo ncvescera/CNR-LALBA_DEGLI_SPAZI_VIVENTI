@@ -8,9 +8,6 @@ from credential1 import *
 from Country import *
 from firstTime import *
 
-if not firstTime:
-	import geonames.geonames.adapters.search
-
 dictionary = ["area","areas","located"]
 
 def ckLib(firstTime):
@@ -32,7 +29,6 @@ def ckLib(firstTime):
 		f.write("firstTime = False")
 		f.close
 		
-		import geonames.geonames.adapters.search
 		
 
 def pdf2txt(file):
@@ -113,6 +109,8 @@ def optimazedMatch(ids):
 	return newIds
 
 def fetchGeonames(matches):
+	if not firstTime:
+		import geonames.geonames.adapters.search
 	geon = []
 	_USERNAME = 'dsoprea'
 	
