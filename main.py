@@ -138,7 +138,7 @@ def fetchGeonames(matches):
 			sa = geonames.adapters.search.Search(_USERNAME)
 			result = sa.query(elem+","+end[j]).max_rows(1).execute()
 			for id_, name in result.get_flat_results():
-				last.append(geonames.compat.make_unicode("{0},{1}").format(id_, name))
+				last.append(geonames.compat.make_unicode("{0}, {1}").format(id_, name))
 	i=0
 	toReturn = []
 	for elem in last:
