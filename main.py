@@ -6,7 +6,12 @@ import re
 
 from credential1 import *
 from Country import *
+from Point import *
 from firstTime import *
+
+from geopy.geocoders import Nominatim
+
+import folium
 
 dictionary = ["area","areas","located"]
 
@@ -33,9 +38,9 @@ def ckLib(firstTime):
 
 def pdf2txt(file):
 	#conversione pdf to txt
-	print "Parsing PDF file to txt ..."
+	print "Parsing PDF file "+file+" to txt ..."
 	os.system("pdftotext -l 4 "+file+" out.txt") #converte solo le prime 3 pagine
-	print "Done :D"
+	print "Done :D\n"
 
 def getUpperWords(file):
 	f = open(file,"r")
@@ -152,27 +157,57 @@ def fetchGeonames(matches):
 			toReturn.append(elem)
 	return toReturn
 
+
+def makeMap(points):
+	print "Makeing map ..."
+	map_osm = folium.Map(location=[41.903853, 12.484492],
+                     zoom_start=3,
+                     tiles='Stamen Terrain')
+	for point in points:
+
+		folium.Marker([point.lat, point.longit], popup=point.name+": "+point.fname, icon=folium.Icon(color='orange',icon='info-sign')).add_to(map_osm)
+    	map_osm.save('map.html')
+    	print "Done !\n"
+
+points = []
+files = os.popen("ls "+sys.argv[1]).read()[:-1].split("\n")
+
 ckLib(firstTime)
 
-pdf2txt(sys.argv[1]) #arg 1 passato allo scritp
-words = getUpperWords("out.txt")
-words = list(set(words)) #elimina glie elementi dioppi
-words.sort()
-os.system("rm out.txt")	
+for file in files:
+	
+	pdf2txt(sys.argv[1]+file) #arg 1 passato allo scritp
+	words = getUpperWords("out.txt")
+	words = list(set(words)) #elimina glie elementi dioppi
+	words.sort()
+	os.system("rm out.txt")	
 
-connection = connectdb()
-if connection == -1:
-	print "Error, connection faild !"
-	exit()
-print "Connection succesful :D"
+	connection = connectdb()
+	if connection == -1:
+		print "Error, connection faild !"
+		exit()
+	print "Connection succesful :D\n"
 
-matches = matchWords(words,connection)
-if len(matches) > 0:
-	print "Final matches: "
-	matches = fetchGeonames(matches)
-	for elem in matches:
-		print elem 
-else:
-	exit(1)
+	matches = matchWords(words,connection)
+	if len(matches) > 0:
+		print "Final matches: "
+		matches = fetchGeonames(matches)
+		for elem in matches:
+			name = elem.split(",")[1][1:]
 
+			#name to coordinates
+			geolocator = Nominatim() 
+	        location = geolocator.geocode(name)
 
+	        points.append(Point(name,location.latitude,location.longitude,file))
+
+	        print name
+	        print "Lat "+str(location.latitude)+" Long "+str(location.longitude)+"\n"
+
+	        
+	"""
+	else:
+		exit(1)
+	"""
+
+makeMap(points)
