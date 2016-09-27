@@ -174,40 +174,42 @@ files = os.popen("ls "+sys.argv[1]).read()[:-1].split("\n")
 
 ckLib(firstTime)
 
-for file in files:
-	
-	pdf2txt(sys.argv[1]+file) #arg 1 passato allo scritp
-	words = getUpperWords("out.txt")
-	words = list(set(words)) #elimina glie elementi dioppi
-	words.sort()
-	os.system("rm out.txt")	
+if os.path.isdir(sys.argv[1]):
+	for file in files:
+		
+		pdf2txt(sys.argv[1]+file) #arg 1 passato allo scritp
+		words = getUpperWords("out.txt")
+		words = list(set(words)) #elimina glie elementi dioppi
+		words.sort()
+		os.system("rm out.txt")	
 
-	connection = connectdb()
-	if connection == -1:
-		print "Error, connection faild !"
-		exit()
-	print "Connection succesful :D\n"
+		connection = connectdb()
+		if connection == -1:
+			print "Error, connection faild !"
+			exit()
+		print "Connection succesful :D\n"
 
-	matches = matchWords(words,connection)
-	if len(matches) > 0:
-		print "Final matches: "
-		matches = fetchGeonames(matches)
-		for elem in matches:
-			name = elem.split(",")[1][1:]
+		matches = matchWords(words,connection)
+		if len(matches) > 0:
+			print "Final matches: "
+			matches = fetchGeonames(matches)
+			for elem in matches:
+				name = elem.split(",")[1][1:]
 
-			#name to coordinates
-			geolocator = Nominatim() 
-	        location = geolocator.geocode(name)
+				#name to coordinates
+				geolocator = Nominatim() 
+		        location = geolocator.geocode(name)
 
-	        points.append(Point(name,location.latitude,location.longitude,file))
+		        points.append(Point(name,location.latitude,location.longitude,file))
 
-	        print name
-	        print "Lat "+str(location.latitude)+" Long "+str(location.longitude)+"\n"
+		        print name
+		        print "Lat "+str(location.latitude)+" Long "+str(location.longitude)+"\n"
 
-	        
-	"""
-	else:
-		exit(1)
-	"""
+		#else:
+		#	exit(1)
+		
 
-makeMap(points)
+	makeMap(points)
+else:
+	print "Error! "+sys.argv[1]+" is not a directory"
+	exit(1)
