@@ -1,2 +1,2 @@
 #!/usr/bin/python
-firstTime = True
+firstTime = False
