@@ -27,6 +27,12 @@ def ckLib(firstTime):
 		print "Check geonames ..."
 		os.system("./installGeon.sh")
 
+		print "Check geopy ..."
+		os.system("sudo pip install geopy")
+
+		print "Check folium ..."
+		os.system("sudo pip install folium")
+
 		print "Done :D"
 
 		f = open("firstTime.py","w")
@@ -142,6 +148,7 @@ def fetchGeonames(matches):
 		for j in range(j,len(end)):
 			sa = geonames.adapters.search.Search(_USERNAME)
 			result = sa.query(elem+","+end[j]).max_rows(1).execute()
+			#result = sa.query(end[j]+","+elem).max_rows(1).execute()
 			for id_, name in result.get_flat_results():
 				last.append(geonames.compat.make_unicode("{0}, {1}").format(id_, name))
 	i=0
@@ -197,6 +204,7 @@ if os.path.isdir(sys.argv[1]):
 				name = elem.split(",")[1][1:]
 
 				#name to coordinates
+				print "NAME: "+name
 				geolocator = Nominatim() 
 		        location = geolocator.geocode(name)
 
