@@ -4,7 +4,7 @@ import os
 import sys
 import re
 
-from credential1 import *
+from credential import *
 from Country import *
 from Point import *
 from firstTime import *
