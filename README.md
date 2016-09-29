@@ -35,3 +35,10 @@ Se continua a non funzionare installare manualmente le librerie.
 <tr><td><b>geopy</b></td><td>Libreria per chimamare geonames</td><td>sudo apt-get install geopy</td></tr>
 <tr><td><b>folium</b></td><td>Libreria per creare una mappa</td><td>sudo apt-get install folium</td></tr>
 </table>
+
+
+<h2>Description</h2>
+Questo script analizza i documenti pdf presenti nella cartella che gli veiene passata e prende tutte le parole con la lettera maiuscala precedute da parole chiavi come "located at" o "situated".<br>
+Cerca le parole che ha trovato nel database presente nalla macchina BlackForce e fa una ricerca incrociata sul database di Geonames con le parole che gli vengono restituite con la precedente ricerca in modo da aumentare la precisione.<br>
+Da questa query verranno fuori tutte le località dove sono stati svolti gli studi.<br>
+Infine crea una mappa con i luoghi trovati.
