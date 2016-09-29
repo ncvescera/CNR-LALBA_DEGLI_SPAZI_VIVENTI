@@ -17,7 +17,7 @@ Script che analizza i documenti di testo inseriti e genera una mappa con il luog
 Per eseguire lo script digitare il seguente comando<br> 
 `main.py nome_della_cartella`<br>
 
-<h3>Argomenti</h3>
+<h3>Arguments</h3>
 Questo script necessita di <b>un argomento</b>: <b>nome della cartella</b>
 
 <h2>Install</h2>
