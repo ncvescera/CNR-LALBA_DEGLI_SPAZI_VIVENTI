@@ -11,3 +11,27 @@ Script che analizza i documenti di testo inseriti e genera una mappa con il luog
 <tr><td><b>installGeon.sh</b></td><td>file che installa la libreria Geon se necessario</td></tr>
 <tr><td><b>main.py</b></td><td>script principale</td></tr>
 </table>
+
+<h2>Run</h2>
+Per eseguire lo script digitare il seguente comando<br> 
+`main.py nome_della_cartella`<br>
+
+<h3>Argomenti</h3>
+Questo script necessita di <b>un argomento</b>: <b>nome della cartella</b>
+
+<h2>Install</h2>
+Per installare le librerie basta eseguire lo script la prima volta e verranno controllate le librerie.<br>
+In caso non funsionasse modificare il file `firstTime.py` e settare la variabile <b>firstTime</b> a <b>True</b><br>
+`firstTime = True`<br>
+Se continua a non funzionare installare manualmente le librerie.
+
+<h3>Librerie</h3>
+<table>
+<tr><td>Nome</td><td>Descrizione</td><td>Comando installazione</td></tr>
+<tr><td>PIP</td><td>Libreria per installare le altre librerie</td><td>-</td></tr>
+<tr><td>popler-utils</td><td>Libreria per convertire pdf a txt</td><td>sudo apt-get install popler-utils</td></tr>
+<tr><td>psycopg2</td><td>Libreria per connettersi ad un database postgres</td><td>sudo apt-get install python-psycopg2</td></tr>
+<tr><td>geonames</td><td>Libreria per chiamare geonames</td><td>-</td></tr>
+<tr><td>geopy</td><td>Libreria per chimamare geonames</td><td>sudo apt-get install geopy</td></tr>
+<tr><td>folium</td><td>Libreria per creare una mappa</td><td>sudo apt-get install folium</td></tr>
+</table>
