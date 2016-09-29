@@ -13,6 +13,7 @@ Script che analizza i documenti di testo inseriti e genera una mappa con il luog
 </table>
 
 <h2>Run</h2>
+<b>Prima di eseguire lo script assicurati di aver compilato il file `credenziali.py` con le credenziali del server!</b><br><br>
 Per eseguire lo script digitare il seguente comando<br> 
 `main.py nome_della_cartella`<br>
 
