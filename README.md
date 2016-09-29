@@ -27,11 +27,11 @@ Se continua a non funzionare installare manualmente le librerie.
 
 <h3>Librerie</h3>
 <table>
-<tr><td>Nome</td><td>Descrizione</td><td>Comando installazione</td></tr>
-<tr><td>PIP</td><td>Libreria per installare le altre librerie</td><td>-</td></tr>
-<tr><td>popler-utils</td><td>Libreria per convertire pdf a txt</td><td>sudo apt-get install popler-utils</td></tr>
-<tr><td>psycopg2</td><td>Libreria per connettersi ad un database postgres</td><td>sudo apt-get install python-psycopg2</td></tr>
-<tr><td>geonames</td><td>Libreria per chiamare geonames</td><td>-</td></tr>
-<tr><td>geopy</td><td>Libreria per chimamare geonames</td><td>sudo apt-get install geopy</td></tr>
-<tr><td>folium</td><td>Libreria per creare una mappa</td><td>sudo apt-get install folium</td></tr>
+<tr><td><b>Nome</b></td><td>Descrizione</td><td>Comando installazione</td></tr>
+<tr><td><b>PIP</b></td><td>Libreria per installare le altre librerie</td><td>-</td></tr>
+<tr><td><b>popler-utils</b></td><td>Libreria per convertire pdf a txt</td><td>sudo apt-get install popler-utils</td></tr>
+<tr><td><b>psycopg2</b></td><td>Libreria per connettersi ad un database postgres</td><td>sudo apt-get install python-psycopg2</td></tr>
+<tr><td><b>geonames</b></td><td>Libreria per chiamare geonames</td><td>-</td></tr>
+<tr><td><b>geopy</b></td><td>Libreria per chimamare geonames</td><td>sudo apt-get install geopy</td></tr>
+<tr><td><b>folium</b></td><td>Libreria per creare una mappa</td><td>sudo apt-get install folium</td></tr>
 </table>
